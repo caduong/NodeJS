@@ -1,0 +1,21 @@
+{
+  "name": "basicnodejs",
+  "version": "1.0.0",
+  "description": "source nodejs basic",
+  "main": "main.js",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.40.2"
+  },
+  "scripts": {
+    "main": "node --inspect-brk=9229 -r esm ./src/main.js"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "CAD",
+  "license": "ISC"
+}
