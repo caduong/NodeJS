@@ -1,28 +1,26 @@
 const express = require('express');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
 const app = express();
-console.log("aaaaaaaaaaaaaaaaaaaaa")
+
+// Connect to mongodb
+mongoose.connect('mongodb://localhost/APIExpessMongoDB') 
+
+// Routes
+const users = require('./routes/users');
+
 // Middlewares
 app.use(logger('dev'));
 
 // Routes
-app.get('/users', (req, res, next) => {
-    res.status(200).json({
-        message: 'You requested index page'
-    })
-});
+app.use('/',users);
 
-app.post('/user', (req, res, next) => {
-    res.status(200).json({
-        message: 'You requested index page'
-    })
-});
 
-// // Catch 404 Errors and forward them to error handler
-app.use((req, res, next) => {
+// Catch 404 Errors and forward them to error handler
+app.use((req, res, next) => { // Show when not find the page
     const err = new Error('Not Found');
-    err.status = 404;
+    err.status = 404; 
     next(err);
 });
 
