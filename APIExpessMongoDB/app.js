@@ -1,6 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -12,10 +13,10 @@ const users = require('./routes/users');
 
 // Middlewares
 app.use(logger('dev'));
+app.use(bodyParser.json()); 
 
 // Routes
 app.use('/',users);
-
 
 // Catch 404 Errors and forward them to error handler
 app.use((req, res, next) => { // Show when not find the page

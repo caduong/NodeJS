@@ -5,7 +5,7 @@ const UsersController = require('../controllers/users');
 
 router.route('/users')
     .get(UsersController.index)
-    .post();
+    .post(UsersController.newUser);
 
 // Page Home
 // router.route('/')
