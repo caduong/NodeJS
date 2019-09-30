@@ -1,5 +1,7 @@
 const express = require('express');
-const router = express.Router();
+const router = require('express-promise-router')();
+//const router = express.Router();
+
 
 const UsersController = require('../controllers/users');
 
@@ -16,7 +18,7 @@ router.route('/users')
 //     })
 //     .post();
 
-// // page admin
+// page admin
 // router.route('/admin')
 // .get((req, res, next) => {
 //     res.status(200).json({

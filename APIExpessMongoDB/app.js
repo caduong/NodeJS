@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-// Connect to mongodb
+// * Connect to mongodb
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/APIExpessMongoDB') 
 
 // Routes
@@ -13,7 +14,7 @@ const users = require('./routes/users');
 
 // Middlewares
 app.use(logger('dev'));
-app.use(bodyParser.json()); 
+app.use(bodyParser.json()); // ?: configure for data receive ?
 
 // Routes
 app.use('/',users);
