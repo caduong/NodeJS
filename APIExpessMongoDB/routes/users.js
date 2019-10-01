@@ -2,7 +2,6 @@ const express = require('express');
 const router = require('express-promise-router')();
 //const router = express.Router();
 
-
 const UsersController = require('../controllers/users');
 
 router.route('/')
@@ -14,6 +13,10 @@ router.route('/:userId')
     .put(UsersController.replaceUser)
     .patch(UsersController.updateUser);
     // .delete()
+
+router.route('/:userId/cars')
+    .get(UsersController.getUserCars)
+    .post(UsersController.newUserCars);
 
 // *: Page Home
 // router.route('/')

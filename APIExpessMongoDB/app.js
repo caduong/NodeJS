@@ -14,14 +14,14 @@ const users = require('./routes/users');
 
 // Middlewares
 app.use(logger('dev'));
-app.use(bodyParser.json()); // ?: configure for data receive ?
+app.use(bodyParser.json()); // ?: configure for data receive is json.
 
 // Routes
 app.use('/users',users);
 
 // Catch 404 Errors and forward them to error handler
 app.use((req, res, next) => { // Show when not find the page
-    const err = new Error('Not Found');
+    const err = new Error('Not Found'); // init err "not Found"
     err.status = 404; 
     next(err);
 });

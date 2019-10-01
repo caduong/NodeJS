@@ -1,4 +1,5 @@
 const Users = require('../models/user');
+const Cars = require('../models/car');
 
 // TODO: in here have 2 method is: index, newUser
 module.exports = { 
@@ -118,5 +119,19 @@ module.exports = {
         const newUser = req.body;
         const result = await Users.findByIdAndUpdate(userId, newUser);
         res.status(200).json({ success: true });
-    }
+    },
+    // !: -------------------------------------------------------------------------
+    getUserCars: async (req, res, next) => {
+        const { userId } = req.params;
+        const user = await Users.findById(userId);
+        console.log('Card ID: ',req.params);
+    },
+
+    newUserCars: async (req, res, next) => {
+    
+        const newCars = new Cars(req.body);
+        const car = await newCars.save();
+        res.status(201).json(car);
+    }, 
+    // !: -------------------------------------------------------------------------
 };
