@@ -85,8 +85,38 @@ module.exports = {
     // }
 
     newUser: async (req, res, next) => {
+        // TODO: get all data from user after save into database.
         const newUser = new Users(req.body);
         const user = await newUser.save();
         res.status(201).json(user);
+    }, 
+
+    getUser: async (req, res, next) => {
+        //console.log('req.params: ', req.params);
+        // TODO: find user from userID.
+        const { userId } = req.params;
+        const user = await Users.findById(userId);
+        res.status(200).json(user);
+    },
+
+    replaceUser: async (req, res, next) => {
+        // *: enforce that req.body must contain all the fields
+        const { userId } = req.params; // id from data user fill
+        const newUser = req.body; // all data from user fill 
+
+        // console.log('userId is: ', userId);
+        // console.log('newUser is: ',newUser);
+
+        const result = await Users.findByIdAndUpdate(userId, newUser);
+        res.status(200).json(result);
+
+    },
+    
+    updateUser: async (req, res, next) => {
+        //*: req.body may contain any number of fields
+        const { userId } = req.params;
+        const newUser = req.body;
+        const result = await Users.findByIdAndUpdate(userId, newUser);
+        res.status(200).json({ success: true });
     }
 };

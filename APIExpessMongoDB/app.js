@@ -17,7 +17,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json()); // ?: configure for data receive ?
 
 // Routes
-app.use('/',users);
+app.use('/users',users);
 
 // Catch 404 Errors and forward them to error handler
 app.use((req, res, next) => { // Show when not find the page

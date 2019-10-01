@@ -5,11 +5,17 @@ const router = require('express-promise-router')();
 
 const UsersController = require('../controllers/users');
 
-router.route('/users')
+router.route('/')
     .get(UsersController.index)
     .post(UsersController.newUser);
 
-// Page Home
+router.route('/:userId')
+    .get(UsersController.getUser)
+    .put(UsersController.replaceUser)
+    .patch(UsersController.updateUser);
+    // .delete()
+
+// *: Page Home
 // router.route('/')
 //     .get((req, res, next) => {
 //         res.status(200).json({
@@ -18,7 +24,7 @@ router.route('/users')
 //     })
 //     .post();
 
-// page admin
+// *: Page admin
 // router.route('/admin')
 // .get((req, res, next) => {
 //     res.status(200).json({
