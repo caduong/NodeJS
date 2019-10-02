@@ -84,17 +84,16 @@ module.exports = {
     //         next(err);
     //     }
     // }
-
+    
+    // TODO: get all data from user after save into database.
     newUser: async (req, res, next) => {
-        // TODO: get all data from user after save into database.
         const newUser = new Users(req.body);
         const user = await newUser.save();
         res.status(201).json(user);
     }, 
 
+    // TODO: find user from userID.
     getUser: async (req, res, next) => {
-        //console.log('req.params: ', req.params);
-        // TODO: find user from userID.
         const { userId } = req.params;
         const user = await Users.findById(userId);
         res.status(200).json(user);
@@ -104,10 +103,6 @@ module.exports = {
         // *: enforce that req.body must contain all the fields
         const { userId } = req.params; // id from data user fill
         const newUser = req.body; // all data from user fill 
-
-        // console.log('userId is: ', userId);
-        // console.log('newUser is: ',newUser);
-
         const result = await Users.findByIdAndUpdate(userId, newUser);
         res.status(200).json(result);
 
@@ -120,18 +115,30 @@ module.exports = {
         const result = await Users.findByIdAndUpdate(userId, newUser);
         res.status(200).json({ success: true });
     },
-    // !: -------------------------------------------------------------------------
-    getUserCars: async (req, res, next) => {
-        const { userId } = req.params;
-        const user = await Users.findById(userId);
-        console.log('Card ID: ',req.params);
-    },
-
-    newUserCars: async (req, res, next) => {
     
-        const newCars = new Cars(req.body);
-        const car = await newCars.save();
-        res.status(201).json(car);
+    getUserCars: async (req, res, next) => {
+        const { userId } = req.params; // *: param = ID
+        const user = await Users.findById(userId).populate('cars'); // Get data from 'cars' add in 'users' and return 'user'
+        console.log('user: ',user);
+        res.status(200).json(user.cars);
+    },
+    // TODO: 
+    newUserCars: async (req, res, next) => {
+        const { userId } = req.params;
+        // Create a new car
+        const newCar = new Cars(req.body);
+        // Get user
+        const user = await Users.findById(userId);
+        // Assign user as a car's seller
+        newCar.seller = user;
+        // Save the car
+        await newCar.save();
+        // Add car to the user's 
+        user.cars.push(newCar);
+        // Save the user
+        await user.save();
+        res.status(201).json(newCar);
     }, 
-    // !: -------------------------------------------------------------------------
+    // 5d92c30cbc323e5c71e67248
+    
 };
