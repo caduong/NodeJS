@@ -7,7 +7,7 @@ const app = express();
 
 // * Connect to mongodb
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/APIExpessMongoDB') 
+mongoose.connect('mongodb://localhost/APIExpessMongoDB'); 
 
 // Routes
 const users = require('./routes/users');

@@ -4,12 +4,15 @@ const router = require('express-promise-router')();
 
 const UsersController = require('../controllers/users');
 
+const { validateParam, schema} = require('../helpers/routeHelpers');
 router.route('/')
     .get(UsersController.index)
     .post(UsersController.newUser);
 
 router.route('/:userId')
-    .get(UsersController.getUser)
+    
+    .get(validateParam(schema.idSchema, 'userId'), UsersController.getUser)
+    //.get(UsersController.getUser)
     .put(UsersController.replaceUser)
     .patch(UsersController.updateUser);
     // .delete()
