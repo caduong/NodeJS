@@ -8,7 +8,7 @@ const {
     schemas
 } = require('../helpers/routeHelpers');
 
-router.route('/:userId')
+router.route('/cars')
     .get(CarsController.index)
     .post(CarsController.newUserCars);
 

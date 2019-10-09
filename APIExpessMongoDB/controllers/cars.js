@@ -1,4 +1,5 @@
 //const Users = require('../models/user');
+const Users = require('../models/user');
 const Car = require('../models/car');
 //const ValidateParam = require('../helpers/routeHelpers');
 
@@ -13,6 +14,12 @@ module.exports = {
       //const { userId } = req.params; // *: param = ID
       const cars = await Car.find({}); // Get data from 'cars' add in 'users' and return 'user'
       res.status(200).json(cars);
+
+      // const { userId } = req.params; // *: param = ID
+      // const user = await Users.findById(userId).populate('cars'); // Get data from 'cars' add in 'users' and return 'user'
+      // //console.log('user: ', user);
+      // res.status(200).json(user.cars);
+
    },
 
    // // validate: DONE

@@ -20,7 +20,7 @@ app.use(bodyParser.json()); // ?: configure for data receive is json.
 // Routes
 app.use('/users', users);
 
-app.use('/cars', cars);
+app.use('/users/:userId', cars);
 
 // Catch 404 Errors and forward them to error handler
 app.use((req, res, next) => { // Show when not find the page
