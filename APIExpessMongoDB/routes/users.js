@@ -4,51 +4,35 @@ const router = require('express-promise-router')();
 
 const UsersController = require('../controllers/users');
 
-const { validateParam, schema} = require('../helpers/routeHelpers');
+const { validateParam, validateBody, schema } = require('../helpers/routeHelpers');
 router.route('/')
-    .get(UsersController.index)
-    .post(UsersController.newUser);
+   .get(UsersController.index)
+   
+   .post(validateBody(schema.userSchema),UsersController.newUser);
 
-router.route('/:userId')
-    
-    .get(validateParam(schema.idSchema, 'userId'), UsersController.getUser)
-    //.get(UsersController.getUser)
-    .put(UsersController.replaceUser)
-    .patch(UsersController.updateUser);
-    // .delete()
+router.route('/:userId') 
+   .get(validateParam(schema.idSchema, 'userId'), UsersController.getUser)
+   
+   .put([validateParam(schema.idSchema, 'userId')
+      ,validateBody(schema.userSchema)], 
+      UsersController.replaceUser)
 
-router.route('/:userId/cars')
-    .get(UsersController.getUserCars)
-    .post(UsersController.newUserCars);
+   .patch([validateParam(schema.idSchema, 'userId')
+      ,validateBody(schema.userSchema)], 
+      UsersController.updateUser);
 
-// *: Page Home
-// router.route('/')
-//     .get((req, res, next) => {
-//         res.status(200).json({
-//             message: 'This is page Home'
-//         })
-//     })
-//     .post();
+// router.route('/:userId/cars/')
+//    .get(validateParam(schema.idSchema, 'userId'),UsersController.getUserCars) 
 
-// *: Page admin
-// router.route('/admin')
-// .get((req, res, next) => {
-//     res.status(200).json({
-//         message: 'This is page Admin'
-//     })
-// })
-// .post();
+//    .post([validateParam(schema.idSchema, 'userId'),
+//       validateBody(schema.carSchema)],
+//       UsersController.newUserCars);
 
-// page users
-// router.route('/users')
-// .get((req, res, next) => {
-//     res.status(200).json({
-//         message: 'This is page Users'
-//     })
-// })
-// .post();
-
-// page users
+   //.post(UsersController.newUserCars)
+router.route('/:userId/cars/:carId') 
+   .get(validateParam(schema.idSchema, 'carId'), UsersController.getCars);
+   // .put(UsersController.replaceUser)
+   // .patch(UsersController.updateUser); 
 
 
 module.exports = router;
