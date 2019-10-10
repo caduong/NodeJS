@@ -14,36 +14,45 @@ module.exports = {
       //const { userId } = req.params; // *: param = ID
       const cars = await Car.find({}); // Get data from 'cars' add in 'users' and return 'user'
       res.status(200).json(cars);
-
-      // const { userId } = req.params; // *: param = ID
-      // const user = await Users.findById(userId).populate('cars'); // Get data from 'cars' add in 'users' and return 'user'
-      // //console.log('user: ', user);
-      // res.status(200).json(user.cars);
+      
 
    },
 
-   // // validate: DONE
-   // getCars: async (req, res, next) => {
-   //    const { carId } = req.params; // *: param = ID
-   //    const carUser = await Cars.findById(carId);
-   //    res.status(200).json(carUser);
-   // },
+   newCars: async (req, res, next) => {
 
-   // // validate: DONE
-   newUserCars: async (req, res, next) => {
-      const { userId } = req.params;
-      // Create a new car
-      const newCar = new Cars(req.body);
-      // Get user
-      const user = await Users.findById(userId);
-      // Assign user as a car's seller
-      newCar.seller = user;
-      // Save the car
-      await newCar.save();
-      // Add car to the user's 
-      user.cars.push(newCar);
-      // Save the user
-      await user.save();
-      res.status(201).json(newCar);
-   },
+      //  Get value seller(ID) and find User wiit ID.  
+      //  seller is User 
+      const seller = await Users.findById(req.body.seller); // ...???...
+
+      //  Create new car with all info user fill.
+      const newCar = req.body;
+
+      //  Delete value seller (in all data user fill). 
+      delete newCar.seller;
+
+      // get info user fill (newCar) transform to font 'Car' defined befor
+      const car = new Car(newCar);
+
+      console.log('Before car.seller: ', car.seller);
+      console.log('Before seller: ',seller);
+      car.seller = seller;
+
+      console.log('After car.seller: ', car.seller);
+      console.log('After seller: ',seller);
+
+      // when save will auto create new "id".
+      await car.save();
+
+      // Seller is user so class is cars. 
+      // Push new car into seller.cars.  
+      seller.cars.push(car);
+
+      await seller.save();
+
+      res.status(200).json(car);
+
+   
+   
+   }
+
 }

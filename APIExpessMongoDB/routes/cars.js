@@ -5,11 +5,11 @@ const CarsController = require('../controllers/cars');
 const {
     validateParams,
     validateBody,
-    schemas
+    schema
 } = require('../helpers/routeHelpers');
 
-router.route('/cars')
+router.route('/')
     .get(CarsController.index)
-    .post(CarsController.newUserCars);
+    .post(validateBody(schema.newCarSchem), CarsController.newCars);
 
 module.exports = router;
