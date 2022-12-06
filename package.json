@@ -4,10 +4,10 @@
   "description": "source nodejs basic",
   "main": "main.js",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.4",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-promise-router": "^3.0.3",
     "joi": "^14.3.1",
     "lodash": "^4.17.15",
